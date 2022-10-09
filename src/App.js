@@ -6,6 +6,12 @@ import About from './components/About';
 import React, {useState} from 'react';
 import Alert from './components/Alert';
 
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 function App() {
   const [mode,setMode] = useState('light'); // whether dark mode is enabled or not
   const[alert,setAlert] = useState(null);
@@ -16,7 +22,7 @@ function App() {
    })
    setTimeout(() =>{
      setAlert(null);
-   },3000);
+   },1500);
   }
    const toggleMode = () =>{
      if(mode==='light'){
@@ -32,13 +38,22 @@ function App() {
    }
   return (
     <>
+    <BrowserRouter>
    <Navbar title="ShreyTextUtils" mode={mode} toggleMode={toggleMode}/>
    <Alert alert={alert}/>
-   <div className="container my-3">
-<TextForm showAlert={showAlert} heading="Enter the text to analyse"  mode={mode}/> 
+   <div className="container my-3">  
+   <Routes>
+   <Route path="/about" element={<About />} />
+          
+          < Route path="/"
+            element= {<TextForm heading="Enter the text to analyse: " mode={mode}/>} /> 
+          </Routes>
+         
+{ /*<TextForm showAlert={showAlert} heading="Enter the text to analyse"  mode={mode}/> */}
 
-{ /* <About/>*/}
+
    </div>
+   </BrowserRouter>
 
    </>
   );     
